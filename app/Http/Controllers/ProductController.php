@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Http\Resources\ProductsResource;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 
@@ -15,7 +16,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        return ProductsResource::collection(Product::all());
     }
 
     /**
@@ -36,7 +37,14 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        //
+        $product = Product::create([
+            'name' => $request->name,
+        
+            
+            
+        ]);
+
+        return new ProductsResource($product);
     }
 
     /**
@@ -47,7 +55,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return new ProductsResource($product);
     }
 
     /**
@@ -70,7 +78,14 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+        $product->update([
+            'name' => $request->input('name'),
+            
+            
+
+        ]);
+
+        return new ProductsResource($product);
     }
 
     /**
@@ -81,6 +96,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+
+        return response(null, 201);
     }
 }

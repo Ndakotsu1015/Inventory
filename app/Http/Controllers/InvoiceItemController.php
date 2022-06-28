@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\InvoiceItem;
+use \Illuminate\Support\Facades\Log;
+use App\Http\Resources\InvoicesItemResource;
 use App\Http\Requests\StoreInvoiceItemRequest;
 use App\Http\Requests\UpdateInvoiceItemRequest;
 
@@ -15,7 +17,7 @@ class InvoiceItemController extends Controller
      */
     public function index()
     {
-        //
+        return InvoicesItemResource::collection(InvoiceItem::all());
     }
 
     /**
@@ -36,7 +38,17 @@ class InvoiceItemController extends Controller
      */
     public function store(StoreInvoiceItemRequest $request)
     {
-        //
+       
+        $invoiceItem = InvoiceItem::create([
+            'invoice_id' => $request->invoice_id,
+            'product_id' => $request->product_id,
+            'unit_price' => $request->unit_price,
+            'quantity' => $request->quantity,
+            'narration' => $request->narration
+            
+        ]);
+
+        return new InvoicesItemResource($invoiceItem);
     }
 
     /**
@@ -47,7 +59,7 @@ class InvoiceItemController extends Controller
      */
     public function show(InvoiceItem $invoiceItem)
     {
-        //
+        return new InvoicesItemResource($invoiceItem);
     }
 
     /**
@@ -70,7 +82,17 @@ class InvoiceItemController extends Controller
      */
     public function update(UpdateInvoiceItemRequest $request, InvoiceItem $invoiceItem)
     {
-        //
+        $invoiceItem->update([
+            'invoice_id' => $request->input('invoice_id'),
+            'product_id' => $request->input('product_id'),
+            'unit_price' => $request->input('unit_price'),
+            'quantity' => $request->input('quantity'),
+            'narration' => $request->input('narration')
+
+        ]);
+
+        return new InvoicesItemResource($invoiceItem);
+       
     }
 
     /**
@@ -81,6 +103,8 @@ class InvoiceItemController extends Controller
      */
     public function destroy(InvoiceItem $invoiceItem)
     {
-        //
+        $invoiceItem->delete();
+
+        return response(null, 201);
     }
 }

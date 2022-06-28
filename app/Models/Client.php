@@ -11,7 +11,8 @@ class Client extends Model
 
     protected $fillable =
     [
-        'name'
+        'name',
+        'address'
     ];
 
     public function invoices()

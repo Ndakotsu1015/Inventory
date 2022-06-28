@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Staff;
 use App\Http\Requests\StoreStaffRequest;
 use App\Http\Requests\UpdateStaffRequest;
+use App\Http\Resources\StaffsResource;
 
 class StaffController extends Controller
 {
@@ -15,7 +16,7 @@ class StaffController extends Controller
      */
     public function index()
     {
-        //
+        return StaffsResource::collection(Staff::all());
     }
 
     /**
@@ -36,7 +37,11 @@ class StaffController extends Controller
      */
     public function store(StoreStaffRequest $request)
     {
-        //
+        $staff = Staff::create([
+            'name' => $request->name
+        ]);
+
+        return new StaffsResource($staff);
     }
 
     /**
@@ -47,7 +52,7 @@ class StaffController extends Controller
      */
     public function show(Staff $staff)
     {
-        //
+        return new StaffsResource($staff);
     }
 
     /**
@@ -70,7 +75,11 @@ class StaffController extends Controller
      */
     public function update(UpdateStaffRequest $request, Staff $staff)
     {
-        //
+        $staff->update([
+            'name' => $request->input('name')
+        ]);
+
+        return new StaffsResource($staff);
     }
 
     /**
@@ -81,6 +90,8 @@ class StaffController extends Controller
      */
     public function destroy(Staff $staff)
     {
-        //
+        $staff->delete();
+
+        return response(null, 201);
     }
 }

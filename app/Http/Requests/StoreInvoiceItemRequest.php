@@ -13,7 +13,7 @@ class StoreInvoiceItemRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,11 @@ class StoreInvoiceItemRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'invoice_id' => 'required|unique:invoices',
+            'product_id' => 'required|unique:products',
+            'unit_price' => 'required',
+            'quantity' => 'required',
+            'narration' => 'required|min:15|max:255'
         ];
     }
 }
