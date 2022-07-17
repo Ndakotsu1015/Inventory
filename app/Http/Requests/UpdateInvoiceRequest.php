@@ -24,9 +24,9 @@ class UpdateInvoiceRequest extends FormRequest
     public function rules()
     {
         return [
-            'invoiceNo' => 'required|unique:invoices',
-            'client_id' => 'required|unique:clients',
-            'staff_id' => 'required|unique:staff',
+            'invoiceNo' => 'required|unique',
+            'client_id' => 'required|unique',
+            'staff_id' => 'required|unique',
             'date_invoice' => 'required',
             'due_date' => 'required',
             'created_by' => 'required',

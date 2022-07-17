@@ -24,7 +24,7 @@ class StoreInvoiceRequest extends FormRequest
     public function rules()
     {
         return [
-            'invoiceNo' => 'required|unique:invoices',
+            'invoiceNo' => 'required|unique:staff',
             'client_id' => 'required|unique:clients',
             'staff_id' => 'required|unique:staff',
             'date_invoice' => 'required',

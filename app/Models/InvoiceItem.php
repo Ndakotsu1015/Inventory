@@ -18,10 +18,10 @@ class InvoiceItem extends Model
         'narration'
     ];
 
-    protected $casts =[
-        'invoice_id',
-        'product_id'
-    ];
+    // protected $casts =[
+    //     'invoice_id',
+    //     'product_id'
+    // ];
 
     public function invoice(){
         return $this->belongsTo(Invoice::class);
