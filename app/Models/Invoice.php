@@ -9,14 +9,17 @@ class Invoice extends Model
 {
     use HasFactory;
 
+    //primary key associated with the table
+
     protected $fillable = [
-        'inovice_no',
+        'invoiceNo',
         'client_id',
         'date_invoice',
         'due_date',
         'created_by',
         'staff_id',
-        'status'
+        'status',
+        'address'
     ];
 
     protected $casts =
@@ -29,7 +32,7 @@ class Invoice extends Model
     {
         return $this->belongsTo(Staff::class);
     }
-    public function cleient(){
+    public function client(){
         return $this->belongsTo(Client::class);
     }
 }
